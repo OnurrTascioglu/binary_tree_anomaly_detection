@@ -11,16 +11,15 @@ int stack_size = 0;
 
 class Node {
 public:
+    int data;
     Node* left;
     Node* right;
 
-    bool detect;
-
-    Node()
+    Node(int x)
     {
+        data = x;
         left = NULL;
         right = NULL;
-        detect = false;
     }
 };
 
@@ -76,33 +75,33 @@ bool detectAnomaly(Node* tree) {
 int main()
 {
 
-    Node* root = new Node();
+    Node* root = new Node(1);
 
-    root->left = new Node();
-    root->left->right = new Node();
-    root->left->left = new Node();
-    root->left->left->left = new Node();
-    root->left->left->right = new Node();
-    root->left->left->right->right = new Node();
-    root->left->left->left->right = new Node();
-    root->right = new Node();
-    root->right->left = new Node();
-    root->right->left->left = new Node();
-    root->right->right = new Node();
-    root->right->right->left = new Node();
+    root->left = new Node(2);
+    root->left->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->left->left = new Node(5);
+    root->left->left->right = new Node(6);
+    root->left->left->right->right = new Node(7);
+    root->left->left->left->right = new Node(8);
+    root->right = new Node(9);
+    root->right->left = new Node(10);
+    root->right->left->left = new Node(11);
+    root->right->right = new Node(12);
+    root->right->right->left = new Node(13);
 
     root->right->left->left->left = root->left->left->right->right; // anomali durumu
 
     /*
-                X
+                1
             /      \
-           X         X
+           2         9
           / \       / \
-         X   X     X   X
+         4   3    10   12
         /  \      /   /
-       X    X    X   X
+       5    6   11   13
         \    \  /                 
-         X    X
+         8    7
      */
          
     if (detectAnomaly(root))
